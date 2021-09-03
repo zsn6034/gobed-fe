@@ -3,7 +3,7 @@
  * @Author: zhuangshunan
  * @Date: 2021-08-22 16:12:18
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-02 23:15:56
+ * @LastEditTime: 2021-09-03 14:50:10
  */
 import { Component, useState, useEffect } from 'react'
 import { View, Text, Picker, CommonEvent } from '@tarojs/components'
@@ -199,6 +199,26 @@ const Index = () => {
       })
     }
   };
+
+  // 转发给好友
+  const onShareAppMessage = (res: any) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: 'BedOrPay？养成早睡习惯指日可待！',
+      path: '/page/index',
+    }
+  };
+
+  // 分享到朋友圈（暂时只支持安卓机）
+  const onShareTimeline = () => {
+    console.log('onShareTimeline');
+    return {
+      title: 'BedOrPay？养成早睡习惯指日可待',
+    };
+  }; 
 
   return (
     <View className={styles.indexContainer}>
