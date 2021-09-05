@@ -1,0 +1,77 @@
+.records {
+  .title {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-size: 40px;
+    color: #333;
+    font-weight: 500;
+  }
+  .card {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: #ffb420;
+    border-radius: 10px;
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 32px;
+      margin-top: 32px;
+      margin-bottom: 32px;
+      .moneyValue {
+        font-family: PingFangSC-Regular;
+        font-size: 48px;
+        color: #333;
+        font-weight: 700;
+      }
+      .moneyText {
+        font-family: PingFangSC-Regular;
+        font-size: 40px;
+        color: #333;
+        font-weight: 500;
+      }
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-right: 32px;
+      margin-top: 32px;
+      margin-bottom: 32px;
+      .date {
+        font-family: PingFangSC-Regular;
+        font-size: 48px;
+        color: #333;
+        font-weight: 700;
+      }
+      .ontimeStatus {
+        :global(.at-tag) {
+          color: #fff;
+          background-color: #00ff88;
+          border: none;
+        }
+      }
+      .uncertainStatus {
+        :global(.at-tag) {
+          color: #000;
+          // background-color: #b4b4b4;
+          border: none;
+        }
+      }
+      .timeoutStatus {
+        :global(.at-tag) {
+          color: #fff;
+          background-color: #f8473b;
+          border: none;
+        }
+      }
+    }
+  }
+}

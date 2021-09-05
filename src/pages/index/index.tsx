@@ -3,11 +3,11 @@
  * @Author: zhuangshunan
  * @Date: 2021-08-22 16:12:18
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-05 11:36:31
+ * @LastEditTime: 2021-09-06 00:18:43
  */
 import { Component, useState, useEffect } from 'react'
 import { View, Text, Picker, CommonEvent } from '@tarojs/components'
-import { AtInput, AtButton, AtIcon } from 'taro-ui';
+import { AtInput, AtButton, AtIcon, AtToast } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
 
@@ -76,6 +76,7 @@ import styles from './index.module.less'
 const Index = () => {
   const [input, setInput] = useState('');
   const [money, setMoney] = useState({ today: 0, total: 0 });
+  const [toast, setToast] = useState({ show: false, text: '' });
 
   // 初始化：获取用户登录凭证
   useEffect(() => {
@@ -190,11 +191,13 @@ const Index = () => {
             },
             success: (saveTimeRes: any) => {
               console.log('saveTime:', saveTimeRes);
+              setToast({ show: true, text: '保存成功' });
             }
           })
         },
         fail: function (err) {
           console.log(err)
+          setToast({ show: true, text: '保存失败' });
         }
       })
     }
@@ -222,6 +225,13 @@ const Index = () => {
 
   return (
     <View className={styles.indexContainer}>
+      <AtToast
+        onClose={() => setToast({ show: false, text: '' })}
+        isOpened={toast.show}
+        text={toast.text}
+        duration={2000}
+        hasMask
+      />
       {/* 标题 */}
       <View className={styles.titleWrap}>
         <Text className={styles.title}>Go bed early, or pay ^_^</Text>
@@ -258,14 +268,14 @@ const Index = () => {
           <AtIcon value='bell' size='30' color='#ffb420'></AtIcon>
           <View className={styles.textWrap}>
             <Text className={styles.name}>Today</Text>
-            <Text className={styles.value}>￥{money.today}</Text>
+            <Text className={styles.value}>&yen;{money.today}</Text>
           </View>
         </View>
         <View className={styles.staticticsItem}>
           <AtIcon value='analytics' size='30' color='#ffb420'></AtIcon>
           <View className={styles.textWrap}>
             <Text className={styles.name}>Total</Text>
-            <Text className={styles.value}>￥{money.total}</Text>
+            <Text className={styles.value}>&yen;{money.total}</Text>
           </View>
         </View>
       </View>

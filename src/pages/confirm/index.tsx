@@ -3,15 +3,24 @@
  * @Author: zhuangshunan
  * @Date: 2021-09-01 20:00:01
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-05 11:45:27
+ * @LastEditTime: 2021-09-05 23:51:15
  */
 import { useState, useEffect } from 'react'
 import { View } from '@tarojs/components'
-import { AtButton, AtToast } from 'taro-ui';
+import { AtButton, AtToast, AtNoticebar } from 'taro-ui';
 import Taro from '@tarojs/taro';
 import styles from './index.module.less';
 
+const date2String = date => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+  const day = date.getDate() + 1 < 10 ? `0${date.getDate()}` : date.getDate();
+  const result = year + '-' + month + '-' + day;
+  return result;
+};
+
 const Confirm = () => {
+  const date = Taro.getCurrentInstance().router?.params?.date || date2String(new Date());
   const [hasConfirm, setHasConfirm] = useState(false);
   const [money, setMoney] = useState(0);
   const [toast, setToast] = useState({ show: false, text: '' });
@@ -80,6 +89,8 @@ const Confirm = () => {
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),
         action: -1, // -1代表不需要惩罚
+        // date: '2021-09-04'
+        date,
       },
       success: (res: any) => {
         console.log('confirm:::', res);
@@ -98,6 +109,8 @@ const Confirm = () => {
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),
         action: 1, // 1代表需要惩罚
+        // date: '2021-09-04'
+        date,
       },
       success: (res: any) => {
         console.log('cancel:::', res);
@@ -113,9 +126,12 @@ const Confirm = () => {
         onClose={() => setToast({ show: false, text: '' })}
         isOpened={toast.show}
         text={toast.text}
-        duration={1500}
+        duration={2000}
         hasMask
       />
+      <View className={styles.date}>
+        <AtNoticebar>{date}</AtNoticebar>
+      </View>
       {hasConfirm ? <View className={styles.title}>今天点过了，明日再来吧！</View> : <View className={styles.title}>该睡觉啦大兄弟，超时你就得交{money}元哦！</View>}
       <View className={styles.btns}>
         <View className={styles.btnWrap}>
