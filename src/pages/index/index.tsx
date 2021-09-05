@@ -3,7 +3,7 @@
  * @Author: zhuangshunan
  * @Date: 2021-08-22 16:12:18
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-03 14:50:10
+ * @LastEditTime: 2021-09-05 11:36:31
  */
 import { Component, useState, useEffect } from 'react'
 import { View, Text, Picker, CommonEvent } from '@tarojs/components'
@@ -90,7 +90,7 @@ const Index = () => {
       success: wxLoginRes => {
         if (wxLoginRes.code) {
           Taro.request({
-            url: 'https://guxiaobai.top/gobed/login',
+            url: 'https://guxiaobai.top:9998/gobed/login',
             method: 'POST',
             data: {
               code: wxLoginRes.code,

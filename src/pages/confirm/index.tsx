@@ -3,7 +3,7 @@
  * @Author: zhuangshunan
  * @Date: 2021-09-01 20:00:01
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-02 10:21:28
+ * @LastEditTime: 2021-09-05 11:45:27
  */
 import { useState, useEffect } from 'react'
 import { View } from '@tarojs/components'
@@ -79,7 +79,7 @@ const Confirm = () => {
       method: 'POST',
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),
-        action: 0,
+        action: -1, // -1代表不需要惩罚
       },
       success: (res: any) => {
         console.log('confirm:::', res);
@@ -97,7 +97,7 @@ const Confirm = () => {
       method: 'POST',
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),
-        action: 1,
+        action: 1, // 1代表需要惩罚
       },
       success: (res: any) => {
         console.log('cancel:::', res);
