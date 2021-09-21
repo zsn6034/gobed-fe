@@ -3,17 +3,17 @@
  * @Author: zhuangshunan
  * @Date: 2021-08-22 16:12:18
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-06 00:18:43
+ * @LastEditTime: 2021-09-21 12:31:49
  */
 import { Component, useState, useEffect } from 'react'
 import { View, Text, Picker, CommonEvent } from '@tarojs/components'
 import { AtInput, AtButton, AtIcon, AtToast } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
-
 // import { observer, inject } from 'mobx-react'
 
 import styles from './index.module.less'
+
 
 // type PageStateProps = {
 //   store: {
@@ -91,7 +91,8 @@ const Index = () => {
       success: wxLoginRes => {
         if (wxLoginRes.code) {
           Taro.request({
-            url: 'https://guxiaobai.top:9998/gobed/login',
+            // url: 'https://guxiaobai.top:9998/gobed/login',
+            url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/login`,
             method: 'POST',
             data: {
               code: wxLoginRes.code,
@@ -117,7 +118,8 @@ const Index = () => {
         success: wxLoginRes => {
           if (wxLoginRes.code) {
             Taro.request({
-              url: 'https://guxiaobai.top:9998/gobed/login',
+              // url: 'https://guxiaobai.top:9998/gobed/login',
+              url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/login`,
               method: 'POST',
               data: {
                 code: wxLoginRes.code,
@@ -126,7 +128,8 @@ const Index = () => {
                 console.log('login：dev返回：', devLoginRes);
                 Taro.setStorageSync('_3rd_session', devLoginRes.data._3rd_session);
                 Taro.request({
-                  url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+                  // url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+                  url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getPenalty`,
                   method: 'GET',
                   data: {
                     _3rd_session: Taro.getStorageSync('_3rd_session'),
@@ -150,7 +153,8 @@ const Index = () => {
     // 当登录凭证的缓存存在时
     else {
       Taro.request({
-        url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+        // url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+        url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getPenalty`,
         method: 'GET',
         data: {
           _3rd_session: Taro.getStorageSync('_3rd_session'),
@@ -183,7 +187,8 @@ const Index = () => {
         success: function (res) {
           console.log('res===', res);
           Taro.request({
-            url: 'https://guxiaobai.top:9998/gobed/users/saveTime',
+            // url: 'https://guxiaobai.top:9998/gobed/users/saveTime',
+            url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/saveTime`,
             method: 'POST',
             data: {
               remind_time: input,

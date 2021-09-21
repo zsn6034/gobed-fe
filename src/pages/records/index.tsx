@@ -3,7 +3,7 @@
  * @Author: zhuangshunan
  * @Date: 2021-09-05 16:37:45
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-05 23:34:11
+ * @LastEditTime: 2021-09-21 12:03:17
  */
 import { useState, useEffect } from 'react';
 import Taro from '@tarojs/taro';
@@ -11,6 +11,7 @@ import { AtTag, AtNoticebar, AtToast } from 'taro-ui'
 import { View } from '@tarojs/components'
 import { Action } from '../../types';
 import styles from './index.module.less';
+
 
 interface Record {
   date: string;
@@ -42,7 +43,8 @@ const Records = () => {
             success: wxLoginRes => {
               if (wxLoginRes.code) {
                 Taro.request({
-                  url: 'https://guxiaobai.top:9998/gobed/login',
+                  // url: 'https://guxiaobai.top:9998/gobed/login',
+                  url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/login`,
                   method: 'POST',
                   data: {
                     code: wxLoginRes.code,
@@ -51,14 +53,15 @@ const Records = () => {
                     console.log('login：dev返回：', devLoginRes);
                     Taro.setStorageSync('_3rd_session', devLoginRes.data._3rd_session);
                     Taro.request({
-                      url: 'https://guxiaobai.top:9998/gobed/users/getRecordList',
+                      // url: 'https://guxiaobai.top:9998/gobed/users/getRecordList',
+                      url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getRecordList`,
                       method: 'GET',
                       data: {
                         _3rd_session: Taro.getStorageSync('_3rd_session'),
                       },
                       success: (res: any) => {
                         console.log('getRecordList:::!!', res);
-                        const list = res.data.recordList.length ? res.data.recordList.map(r => ({
+                        const list = res.data?.recordList?.length ? res.data.recordList.map(r => ({
                           date: r.date,
                           curMoney: r.cur_money,
                           status: r.last_confirm_action,
@@ -77,14 +80,15 @@ const Records = () => {
         // 当登录凭证的缓存存在时
         else {
           Taro.request({
-            url: 'https://guxiaobai.top:9998/gobed/users/getRecordList',
+            // url: 'https://guxiaobai.top:9998/gobed/users/getRecordList',
+            url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getRecordList`,
             method: 'GET',
             data: {
               _3rd_session: Taro.getStorageSync('_3rd_session'),
             },
             success: (res: any) => {
               console.log('getRecordList:::!!', res);
-              const list = res.data.recordList.length ? res.data.recordList.map(r => ({
+              const list = res.data?.recordList?.length ? res.data.recordList.map(r => ({
                 date: r.date,
                 curMoney: r.cur_money,
                 status: r.last_confirm_action,

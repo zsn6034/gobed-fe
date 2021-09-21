@@ -3,7 +3,7 @@
  * @Author: zhuangshunan
  * @Date: 2021-09-01 20:00:01
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-09-05 23:51:15
+ * @LastEditTime: 2021-09-21 12:30:29
  */
 import { useState, useEffect } from 'react'
 import { View } from '@tarojs/components'
@@ -33,7 +33,8 @@ const Confirm = () => {
         success: wxLoginRes => {
           if (wxLoginRes.code) {
             Taro.request({
-              url: 'https://guxiaobai.top:9998/gobed/login',
+              // url: 'https://guxiaobai.top:9998/gobed/login',
+              url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/login`,
               method: 'POST',
               data: {
                 code: wxLoginRes.code,
@@ -42,7 +43,8 @@ const Confirm = () => {
                 console.log('login：dev返回：', devLoginRes);
                 Taro.setStorageSync('_3rd_session', devLoginRes.data._3rd_session);
                 Taro.request({
-                  url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+                  // url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+                  url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getPenalty`,
                   method: 'GET',
                   data: {
                     _3rd_session: Taro.getStorageSync('_3rd_session'),
@@ -65,7 +67,8 @@ const Confirm = () => {
     // 当登录凭证的缓存存在时
     else {
       Taro.request({
-        url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+        // url: 'https://guxiaobai.top:9998/gobed/users/getPenalty',
+        url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/getPenalty`,
         method: 'GET',
         data: {
           _3rd_session: Taro.getStorageSync('_3rd_session'),
@@ -84,7 +87,8 @@ const Confirm = () => {
   const confirm = () => {
     console.log('睡了睡了~');
     Taro.request({
-      url: 'https://guxiaobai.top:9998/gobed/users/confirmOrCancel',
+      // url: 'https://guxiaobai.top:9998/gobed/users/confirmOrCancel',
+      url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/confirmOrCancel`,
       method: 'POST',
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),
@@ -104,7 +108,8 @@ const Confirm = () => {
   const cancel = () => {
     console.log('哥有钱，拿去花~');
     Taro.request({
-      url: 'https://guxiaobai.top:9998/gobed/users/confirmOrCancel',
+      // url: 'https://guxiaobai.top:9998/gobed/users/confirmOrCancel',
+      url: `${process.env.HTTPS_HOST}:${process.env.HTTPS_PORT}/gobed/users/confirmOrCancel`,
       method: 'POST',
       data: {
         _3rd_session: Taro.getStorageSync('_3rd_session'),

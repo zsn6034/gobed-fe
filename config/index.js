@@ -3,8 +3,10 @@
  * @Author: zhuangshunan
  * @Date: 2021-08-22 16:12:18
  * @LastEditors: zhuangshunan
- * @LastEditTime: 2021-08-22 18:15:31
+ * @LastEditTime: 2021-09-21 11:41:31
  */
+import path from 'path';
+
 const config = {
   projectName: 'gobed',
   date: '2021-8-22',
@@ -26,6 +28,14 @@ const config = {
     }
   },
   framework: 'react',
+  alias: {
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/hooks': path.resolve(__dirname, '..', 'src/hooks'),
+    '@/store': path.resolve(__dirname, '..', 'src/store'),
+    '@/services': path.resolve(__dirname, '..', 'src/services'),
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
   mini: {
     postcss: {
       pxtransform: {
